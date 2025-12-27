@@ -1,6 +1,7 @@
 package Entities;
 
 import Items.Consumable;
+import Items.ConsumableCombat;
 import Items.MainWeapon;
 import Items.Potion;
 
@@ -13,6 +14,7 @@ public abstract class Hero extends Entity {
     protected int level;
     protected MainWeapon mainWeapon;
     protected ArrayList<Consumable> inventory;
+    protected boolean specialUsed;
 
     public Hero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon) {
         super(name, maxHp, currentHp, strength, gold);
@@ -20,6 +22,7 @@ public abstract class Hero extends Entity {
         this.level = level;
         this.mainWeapon = mainWeapon;
         this.inventory = new ArrayList<Consumable>();
+        this.specialUsed =false;
     }
 
     public HeroType getHeroType() {
@@ -58,6 +61,9 @@ public abstract class Hero extends Entity {
         inventory.remove(consumableToDelete);
     }
 
+    /**
+     * método para usar uma poção
+     */
     public void usePotion(){
         ArrayList<Potion> potionsInInventory = new ArrayList<Potion>();
 
@@ -105,11 +111,46 @@ public abstract class Hero extends Entity {
 
     }
 
+
+
+
+
+    /**
+     * Método que retorna dano causado para o ataque normal
+     * @return damage value
+     */
+    public int normalAttack(){
+        int damage = this.strength + this.mainWeapon.getAttack();
+        return damage;
+    };
+
+    /**
+     * Método que retone dano causado para ataque especial
+     * @return damage
+     */
+    public int specialAttack(){
+        int damage = this.strength + this.mainWeapon.getSpecialAttack();
+        return damage;
+    }
+
+    /**
+     *Método que retorna dano causado por instantAttack e remove o consumable combat utilizado
+     * @param consumable
+     * @return damage
+     */
+    public int consumableAttack(ConsumableCombat consumable){
+        int damage = consumable.getInstantAttack();
+        removeConsumableInventory(consumable);
+        return damage;
+
+    }
+
+
+
     /**
      * Método para ataques por turnos
      * @param targetNpc
      * @return true when the Hero Wins | return false when the NPC wins
      */
     public abstract boolean attack(Npc targetNpc);
-
 }

@@ -55,6 +55,9 @@ public abstract class Entity {
         this.gold = gold;
     }
 
+    /**
+     *
+     */
     public void showDetails(){
         System.out.println( "Name : "+ this.name + " hp: "+ this.currentHp+"/"+ this.maxHp + " | Strength +" + this.strength + " | Gold :" + this.gold);
 
