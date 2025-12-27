@@ -111,7 +111,26 @@ public abstract class Hero extends Entity {
 
     }
 
+    public int attackMenu(){
+        Scanner sc = new Scanner(System.in);
 
+        while (true){
+            System.out.println("Escolha o tipo de ataque:");
+            System.out.println("1 - Ataque Normal");
+            System.out.println("2 - Ataque Especial");
+            System.out.println("3 - Ataque Consumível");
+
+            int choice = sc.nextInt();
+
+            if (choice >=1 && choice <=3 ) {
+                return choice;
+            }
+            else {
+                System.out.println("Esta opção é inválida, tente novamente!");
+            }
+        }
+
+    }
 
 
 
