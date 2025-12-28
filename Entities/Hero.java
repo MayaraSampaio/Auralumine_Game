@@ -1,5 +1,4 @@
 package Entities;
-
 import Items.Consumable;
 import Items.ConsumableCombat;
 import Items.MainWeapon;
@@ -16,7 +15,7 @@ public abstract class Hero extends Entity {
     protected ArrayList<Consumable> inventory;
     protected boolean specialUsed;
 
-    public Hero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon) {
+    public Hero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon,boolean specialUsed) {
         super(name, maxHp, currentHp, strength, gold);
         this.heroType = heroType;
         this.level = level;
@@ -111,6 +110,10 @@ public abstract class Hero extends Entity {
 
     }
 
+    /**
+     * Metodo que chama o Menu para escolher o tipo de ataque
+     * @return choice
+     */
     public int attackMenu(){
         Scanner sc = new Scanner(System.in);
 
@@ -128,6 +131,49 @@ public abstract class Hero extends Entity {
             else {
                 System.out.println("Esta opção é inválida, tente novamente!");
             }
+        }
+
+    }
+
+    /**
+     * Metodo para mostrar as opções de consumiveis de combate disponiveis do jogador
+     * @return consumable combate
+     */
+    public ConsumableCombat choiceConsumableCombate(){
+        Scanner sc = new Scanner(System.in);
+
+        ArrayList<ConsumableCombat> listConsumablesCombat = new ArrayList<>();
+
+        for (Consumable consumable : this.inventory){
+            if (consumable instanceof ConsumableCombat){
+                listConsumablesCombat.add((ConsumableCombat) consumable);
+            }
+        }
+        if (listConsumablesCombat.isEmpty()){
+            System.out.println("Você não possui consumíveis de combate.");
+            return null;
+        }
+
+        while (true) {
+            System.out.println("Consumíveis de Combate:");
+            for (int i = 0; i < listConsumablesCombat.size(); i++) {
+                System.out.println((i + 1) + "-" + listConsumablesCombat.get(i));
+            }
+            System.out.println("0-Cancelar");
+
+            int choice = sc.nextInt();
+
+            //utilizado para quando o jogador quiser voltar para o menu inicial que será implementado no metodo de ataque
+            if (choice == 0) {
+                return null;
+
+            }
+
+            if (choice > 0 && choice <= listConsumablesCombat.size()) {
+                return listConsumablesCombat.get(choice - 1);
+            }
+
+            System.out.println("Escolha inválida.");
         }
 
     }
@@ -163,7 +209,6 @@ public abstract class Hero extends Entity {
         return damage;
 
     }
-
 
 
     /**

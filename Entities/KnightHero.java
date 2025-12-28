@@ -6,10 +6,9 @@ import java.util.Scanner;
 
 public class KnightHero extends Hero {
 
-    public KnightHero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon) {
-        super(name, maxHp, currentHp, strength, gold, heroType, level, mainWeapon);
+    public KnightHero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon,boolean specialUsed) {
+        super(name, maxHp, currentHp, strength, gold, heroType, level, mainWeapon,specialUsed);
     }
-
 
     @Override
     public boolean attack(Npc targetNpc) {
