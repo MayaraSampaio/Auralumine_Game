@@ -15,13 +15,13 @@ public abstract class Hero extends Entity {
     protected ArrayList<Consumable> inventory;
     protected boolean specialUsed;
 
-    public Hero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon,boolean specialUsed) {
+    public Hero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon) {
         super(name, maxHp, currentHp, strength, gold);
         this.heroType = heroType;
         this.level = level;
         this.mainWeapon = mainWeapon;
-        this.inventory = new ArrayList<Consumable>();
-        this.specialUsed =false;
+        this.inventory = inventory;
+        this.specialUsed = specialUsed;
     }
 
     public HeroType getHeroType() {

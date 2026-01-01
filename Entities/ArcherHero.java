@@ -1,13 +1,16 @@
 package Entities;
 
+import Items.Consumable;
 import Items.ConsumableCombat;
 import Items.MainWeapon;
+
+import java.util.ArrayList;
 
 public class ArcherHero extends Hero{
 
 
-    public ArcherHero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon, boolean specialUsed) {
-        super(name, maxHp, currentHp, strength, gold, heroType, level, mainWeapon,specialUsed);
+    public ArcherHero(String name, int maxHp, int currentHp, int strength, int gold, HeroType heroType, int level, MainWeapon mainWeapon) {
+        super(name, maxHp, currentHp, strength, gold, heroType, level, mainWeapon);
     }
 
     /**
