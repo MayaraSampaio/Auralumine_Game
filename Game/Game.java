@@ -6,6 +6,7 @@ import Items.MainWeapon;
 import Items.Potion;
 
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 import static Entities.HeroType.*;
@@ -281,9 +282,9 @@ public class Game {
         lightGrenade.addAllowedHeroes(FEITICEIRA);
 
         ConsumableCombat luminarPowder = new ConsumableCombat("Pó explosivo Luminar",10,14);
-        luminarPowder.addAllowedHeroes(HeroType.CAVALEIRA);
-        luminarPowder.addAllowedHeroes(HeroType.FEITICEIRA);
-        luminarPowder.addAllowedHeroes(HeroType.ARQUEIRA);
+        luminarPowder.addAllowedHeroes(CAVALEIRA);
+        luminarPowder.addAllowedHeroes(FEITICEIRA);
+        luminarPowder.addAllowedHeroes(ARQUEIRA);
 
 
         ConsumableCombat starArrow = new ConsumableCombat("Flecha estelar condensada", 28, 25);
@@ -334,7 +335,6 @@ public class Game {
 
         return choice;
     }
-
     public int torreHorizonte_02() throws InterruptedException {
         Scanner input = new Scanner(System.in);
         int choice;
@@ -394,9 +394,12 @@ public class Game {
 
         choice = input.nextInt();
 
+        // aqui vou inserir vou colocar as opções de sala que ela vai poder entrar neste momento, ela escolhe alguma , por exemplo vilarejo Vivalume que é a sala 03 no switch case
+        // mas eu vou ter duas opções aqui 1- ir para mercadora ou 2- ir para vilarejo vivalume
+        // se ela escolher 02 eu vou dizer que então : se choice ==2 agora choice == 3 e eu vou retornar 03 e no meu switch case vai me levar para o case 03
+
         return choice;
     }
-
     public int vilarejoVivalume_03(Hero hero) throws InterruptedException {
         Scanner input = new Scanner(System.in);
         Seller lira = createSeller();
@@ -475,28 +478,246 @@ public class Game {
 
         return 0;
     }
+    public int vilarejoAbandonado_04(Hero hero) throws InterruptedException {
+        System.out.println("LOCAL: Vilarejo abandonado");
+        Thread.sleep(1500);
+
+        System.out.println(" Solária : Não tem ninguém por aqui, as sombras tomaram esse lugar...");
+        Thread.sleep(1500);
+
+        System.out.println("barulho : AUUUUUUUUUUUUUUUUUUUUHHHHHHHHHHH!");
+        Thread.sleep(1500);
+
+        Npc npc = createLoboLuminar();
+
+        System.out.println("Lobo luminar corrompido : Você não deveria estar aqui. As sombras irão dominar Auralumine");
+
+       hero.showDetails();
+       boolean venceu = hero.attack(npc);
+
+       if(!venceu){
+           System.out.println("O Lobo Luminar dilacera sua luz...");
+           System.out.println("Sua jornada termina aqui.");
+           return 0;
+       }
+
+        System.out.println("O Lobo Luminar é derrotado e se dissipa em luz.");
+        System.out.println("Você encontrou ouro entre os destroços.");
+        Thread.sleep(1500);
 
 
-    public int vilarejoAbandonado(){
-        return 0;
-    }
-    public int casaVilarejoAbandonado(){
-        return 0;
-    }
-    public int fendaNegra(){
-        return 0;
-    }
-    public int ruinasOcultas(){
-        return 0;
-    }
+        System.out.println("Status atual :");
+        System.out.println();
+        Thread.sleep(1500);
 
-    public int desfiladeiroEclipse(){
+
+        hero.showDetails();
+
+        System.out.println();
+        System.out.println();
+        System.out.println("Para onde você deseja ir agora?");
         return 0;
+
+
     }
-    public int camaraComandante(){
-        return 0;
+    public int casaVilarejoAbandonado_05(Hero hero) throws InterruptedException {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("LOCAL: Casa com uma luz no Vilarejo Abandonado");
+        Thread.sleep(1500);
+
+
+        System.out.println("Entre as ruínas, uma pequena casa ainda emite uma luz fraca.O brilho tremula, como se estivesse prestes a se apagar.");
+        Thread.sleep(2000);
+        System.out.println("Ao se aproximar, você vê uma pessoa ferida, envolta em sombras.Ela parece exausta e assustada.");
+        Thread.sleep(2000);
+        System.out.println("Senhora em perigo : Por favor... eu não sei quanto tempo mais aguento...");
+        Thread.sleep(1500);
+
+        System.out.println("O que você deseja fazer?");
+        System.out.println("1 - Ajudar a pessoa");
+        System.out.println("2 - Ignorar e seguir seu caminho");
+
+        int choice;
+
+        do {
+            choice = sc.nextInt();
+            if (choice < 1 || choice > 2) {
+                System.out.println("Opção inválida, escolha 1 ou 2.");
+            }
+        }while (choice < 1 || choice > 2);
+
+        if (choice == 2) {
+            System.out.println("A luz da casa se apaga lentamente enquanto você se afasta...");
+            Thread.sleep(2000);
+        } else if (choice ==1){
+            int damage= 8;
+            hero.setCurrentHp(hero.getCurrentHp() - damage);
+            System.out.println( "Você sofreu " + damage + " pontos de dano ao proteger a pessoa.");
+
+            System.out.println("status atual : ");
+            hero.showDetails();
+            Thread.sleep(1500);
+
+            System.out.println("Para onde deseja ir agora ?");
+            int myWay= sc.nextInt();
+
+            return myWay;
+
+
+            
+        }
+        System.out.println("Para onde deseja ir agora ?");
+        int myWay= sc.nextInt();
+
+        return myWay;
+
+
+    }
+    public int fendaNegra_06(Hero hero) throws InterruptedException {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("LOCAL: Sala da Fenda Negra");
+        Thread.sleep(1000);
+
+        System.out.println("Você entra na sala e sente a escuridão abraçar cada canto...");
+        Thread.sleep(1500);
+
+        System.out.println("Um garoto aparece e diz:");
+        Thread.sleep(1000);
+        System.out.println("Cuidado para atravessar. Tenho uma lanterna com lumis-fire ou posso te dar 200 moedas . ");
+        Thread.sleep(1500);
+
+        System.out.println("Escolha sua ação:");
+        System.out.println("1 - Pegar a lanterna");
+        System.out.println("2 - Pegar 200 moedas");
+
+        int choice = input.nextInt();
+        int myWay = 0;
+
+        if (choice == 1){
+            System.out.println("Você pega a lanterna e consegue atravessar a sala em segurança.");
+            System.out.println("para onde deseja ir agora?");
+
+            myWay = input.nextInt();
+
+        } else if (choice ==2 ) {
+
+            if (hero.getHeroType()== FEITICEIRA){
+                System.out.println("Você pega as moedas, mas a escuridão é traiçoeira...");
+                Thread.sleep(1000);
+                System.out.println("entretanto por ser feiticeira você usa a luz emanada por sua varinha e desvia dos perigos da escuridão");
+
+                System.out.println("para onde deseja ir agora?");
+
+                myWay = input.nextInt();
+
+            }else {
+                System.out.println("Você pega as moedas, mas a escuridão é traiçoeira...");
+                Thread.sleep(1000);
+                System.out.println("A escuridão abraça seu destino. Sua luz se apaga para sempre.");
+                return 0;
+            }
+
+
+        }
+
+
+        return myWay;
+    }
+    public int ruinasOcultas(Hero hero) throws InterruptedException {
+
+        Scanner input = new Scanner(System.in);
+        int choice;
+
+        hero.showDetails();
+        System.out.println("Você está caminhando e encontrou um baú velho e enferrujado com 30 moedas de ouro ");
+        Thread.sleep(1500);
+        hero.setGold(hero.getGold()+ 30);
+
+        System.out.println();
+        System.out.println("status atual:");
+        hero.showDetails();
+
+        System.out.println("para onde você deseja ir agora?");
+        choice = input.nextInt();
+        return choice;
+
+    }
+    public int desfiladeiroEclipse(Hero hero) throws InterruptedException {
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.println("LOCAL: Desfiladeiro do Eclipse");
+        Thread.sleep(1000);
+
+        System.out.println("Sileth, Ex-guardiã com armadura semi-corrompida, metade iluminada, metade tomada por sombra.");
+        Thread.sleep(1500);
+
+        System.out.println("Sileph: Fique longe de mim! A escuridão sussurra... ela controla... eu não...eu não posso…");
+        Thread.sleep(1500);
+
+        System.out.println("Sileph: Você vai sofrer Solária");
+        Thread.sleep(1500);
+
+
+        Npc sileph = createSileph();
+        boolean venceu = hero.attack(sileph);
+
+        if (!venceu) {
+            System.out.println("Você foi derrotado...");
+            return 0;
+        } else {
+            System.out.println("Sileth derrotada! Você continua sua jornada.");
+            System.out.println();
+            System.out.println();
+
+            System.out.println("Para onde você deseja ir agora?");
+            return 0;
+        }
+
+    }
+    public int camaraComandante(Hero hero) throws InterruptedException {
+        System.out.println("LOCAL: Câmara do Comandante");
+        Thread.sleep(1000);
+        System.out.println("Você entra e vê o Comandante da Máscara aguardando...");
+        Thread.sleep(1000);
+
+        System.out.println("Comandante da Mascara: Então você é a Solária... ");
+        Thread.sleep(1000);
+        System.out.println("Comandante da Mascara: Junte se a nós, deixe as sombras mostrarem todo o seu poder... ");
+        Thread.sleep(1000);
+
+        System.out.println("Solária: Prefiro morrer... ");
+        Thread.sleep(1000);
+
+        System.out.println("De repente, uma voz familiar ecoa: Sonte, seu irmão gêmeo, é o traidor !");
+        Thread.sleep(1500);
+
+        System.out.println("Sonte : Comandante, mate-a");
+        Thread.sleep(1500);
+
+
+        System.out.println("Prepare-se para a batalha ");
+
+        Npc comandante = createComandanteMascara();
+        hero.showDetails();
+        boolean venceu = hero.attack(comandante);
+        if (!venceu) {
+            System.out.println("Você foi derrotado...");
+            return 0;
+        } else {
+            System.out.println("Comandante da Máscara derrotado! Está perto de salvar Auralumine");
+            System.out.println();
+            System.out.println();
+
+            System.out.println("Para onde você deseja ir agora?");
+            return 0;
+        }
     }
     public int tronoSombrio() {
+
+
         return 0;
     }
 
