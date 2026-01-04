@@ -625,7 +625,7 @@ public class Game {
 
         return myWay;
     }
-    public int ruinasOcultas(Hero hero) throws InterruptedException {
+    public int ruinasOcultas_07(Hero hero) throws InterruptedException {
 
         Scanner input = new Scanner(System.in);
         int choice;
@@ -644,7 +644,7 @@ public class Game {
         return choice;
 
     }
-    public int desfiladeiroEclipse(Hero hero) throws InterruptedException {
+    public int desfiladeiroEclipse_08(Hero hero) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
 
 
@@ -677,7 +677,7 @@ public class Game {
         }
 
     }
-    public int camaraComandante(Hero hero) throws InterruptedException {
+    public int camaraComandante_09(Hero hero) throws InterruptedException {
         System.out.println("LOCAL: Câmara do Comandante");
         Thread.sleep(1000);
         System.out.println("Você entra e vê o Comandante da Máscara aguardando...");
@@ -715,7 +715,31 @@ public class Game {
             return 0;
         }
     }
-    public int tronoSombrio() {
+    public int tronoSombrio_10() throws InterruptedException {
+
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("LOCAL: TRONO SOMBRIO");
+        Thread.sleep(1500);
+
+
+        System.out.println("Você entra na grandiosa sala do trono. O ar está pesado, cheio de trevas e silêncio.");
+        System.out.println("Sonte, seu irmão gêmeo, está sentado no trono, metade de seu corpo iluminado, metade mergulhado em sombras.\n");
+
+        System.out.println("Sonte: Ah, Solaria... você finalmente veio. Eu esperava por este momento.");
+        System.out.println("Solaria: Sonte! Como você pôde... matar nossos pais e roubar o Coração de Lumen?");
+        System.out.println("Sonte sorri, mas não há calor em seus olhos, apenas frieza e determinação.");
+
+        System.out.println("Sonte: Matar nossos pais... foi necessário. Eles eram fracos, limitados pelo medo da tradição.Eu não queria dividir o reino, Solaria. Nunca quis. E agora, a luz não é suficiente para governar este mundo.\"");
+        System.out.println("Sonte: As sombras são mais fortes, mais rápidas, mais eternas. A Luz é bela... mas fraca, efêmera.");
+        System.out.println("Solaria: Ainda podemos mudar isso! Não é tarde!");
+
+        System.out.println("Sonte levanta-se, a escuridão envolvendo-o como uma aura viva.");
+        System.out.println("Sonte: Não há mais volta, irmã. Você não vai me salvar, e nem salvará este reino se se opuser a mim.");
+        System.out.println("Sonte: Eu sou a sombra que tudo consome, e quem tentar me enfrentar será destruído.");
+
+        System.out.println("Pressione Enter para enfrentar o destino");
+        input.nextLine();
 
 
         return 0;
