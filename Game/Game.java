@@ -761,7 +761,7 @@ public class Game {
 
                 int myWay = input.nextInt();
 
-                if (myWay == 1) return 8; // desfiladeiro do eclipse
+                if (myWay == 1) return 7; // ruinas ocultas
                 if (myWay == 2) return 9; // camara comandante
 
                 System.out.println("Escolha inválida.");
