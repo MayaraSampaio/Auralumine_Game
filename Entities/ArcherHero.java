@@ -14,7 +14,7 @@ public class ArcherHero extends Hero{
     }
 
     /**
-     * preencher
+     * Archer's attack method
      * @param targetNpc
      * @return
      */
@@ -23,11 +23,13 @@ public class ArcherHero extends Hero{
 
         specialUsed = false;
 
+
         while (this.currentHp > 0 && targetNpc.getCurrentHp() > 0) {
 
             //utiliza uma das opções do menu ataque
             int option = attackMenu();
             int damage = 0;
+
 
             switch (option) {
                 case 1:
@@ -48,11 +50,16 @@ public class ArcherHero extends Hero{
                     if (consumable == null) continue;
                     damage = consumableAttack(consumable);
                     break;
+                case 4:
+                    usePotion();
+                    continue;
             }
 
             //ArcherHero
             targetNpc.setCurrentHp(targetNpc.getCurrentHp() - damage);
             System.out.println("Você causou " + damage + " de dano!");
+            System.out.println(targetNpc.name + " "+ targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+            System.out.println();
 
             if (targetNpc.getCurrentHp()<=0) {
                 System.out.println("O vilão foi derrotado!");
@@ -69,15 +76,18 @@ public class ArcherHero extends Hero{
             int npcDamage = (int) Math.round(targetNpc.getStrength() + (targetNpc.getStrength() * 0.10));
             currentHp -= npcDamage;
             System.out.println(targetNpc.name + "causou " + npcDamage + " de dano!");
+            System.out.println(targetNpc.name + " "+ targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+            System.out.println();
+            System.out.println();
 
             if (currentHp <= 0) {
                 System.out.println("Você foi derrotado!");
-                specialUsed = false;
-                return false;
-            }
-        }
 
-        specialUsed = false;
+            }
+
+
+        }
         return false;
+
     }
 }

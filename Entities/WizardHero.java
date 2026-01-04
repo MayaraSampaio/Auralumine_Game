@@ -12,6 +12,11 @@ public class WizardHero extends Hero {
         super(name, maxHp, currentHp, strength, gold, heroType, level, mainWeapon);
     }
 
+    /**
+     *Witch's attack method
+     * @param targetNpc
+     * @return
+     */
     @Override
     public boolean attack(Npc targetNpc) {
 
@@ -41,11 +46,16 @@ public class WizardHero extends Hero {
                     if (consumable == null) continue;
                     damage = consumableAttack(consumable);
                     break;
+                case 4:
+                    usePotion();
+                    continue;
             }
 
             //WizardHero
             targetNpc.setCurrentHp(targetNpc.getCurrentHp() - damage);
             System.out.println("Você causou " + damage + " de dano!");
+            System.out.println("Vida NPC  " + targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+
 
             if (targetNpc.getCurrentHp()<=0) {
                 System.out.println("O vilão foi derrotado!");
@@ -62,6 +72,10 @@ public class WizardHero extends Hero {
             int npcDamage = targetNpc.getStrength();
             currentHp -= npcDamage;
             System.out.println("O NPC causou " + npcDamage + " de dano!");
+            System.out.println("Vida NPC  " + targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+            System.out.println();
+            System.out.println();
+
 
             if (currentHp <= 0) {
                 System.out.println("Você foi derrotado!");

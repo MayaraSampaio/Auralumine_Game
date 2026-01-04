@@ -32,5 +32,11 @@ public class Potion extends Consumable {
     }
 
 
-
+    @Override
+    public void showHeroItemDetails() {
+        System.out.println(this.goldPrice +"moedas de ouro ");
+        showConsumableItem();
+        System.out.println( "Heróis que podem usar:");
+        showHerosAllowed();
+    }
 }

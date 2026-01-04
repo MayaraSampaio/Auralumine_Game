@@ -14,7 +14,7 @@ public class KnightHero extends Hero {
     }
 
     /**
-     * preencher
+     * Knight's Attack Method
      * @param targetNpc
      * @return
      */
@@ -29,6 +29,10 @@ public class KnightHero extends Hero {
             int npcDamage = (int) Math.round((targetNpc.getStrength() * 0.80));
             currentHp -= npcDamage;
             System.out.println(targetNpc.name + "causou " + npcDamage + " de dano!");
+            System.out.println(targetNpc.name + " "+ targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+            System.out.println();
+            System.out.println();
+
 
             if (currentHp <= 0) {
                 System.out.println("Você foi derrotado!");
@@ -60,11 +64,15 @@ public class KnightHero extends Hero {
                     if (consumable == null) continue;
                     damage = consumableAttack(consumable);
                     break;
+                case 4:
+                    usePotion();
+                    continue;
             }
 
             //KnightHero
             targetNpc.setCurrentHp(targetNpc.getCurrentHp() - damage);
             System.out.println("Você causou " + damage + " de dano!");
+            System.out.println(targetNpc.name + " "+ targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
 
             if (targetNpc.getCurrentHp()<=0) {
                 System.out.println("O vilão foi derrotado!");

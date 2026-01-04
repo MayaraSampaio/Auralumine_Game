@@ -39,26 +39,35 @@ public abstract class HeroItem {
         return name;
     }
 
+    /**
+     * Method to add which heroes are allowed to use a specific item.
+     * @param typeOfHero
+     */
     public void addAllowedHeroes(HeroType typeOfHero){
     allowedHeroes.add(typeOfHero);
 
    }
+
+    /**
+     * Method to list which heroes are allowed to use a specific item.
+     */
    public void showHerosAllowed(){
        for(HeroType hero : this.allowedHeroes){
            System.out.println("-" + hero);
        }
    }
+
+    /**
+     * Method to verify which heroes are allowed to use a specific item.
+     * @param heroType
+     * @return
+     */
     public boolean isAllowedHero(HeroType heroType) {
         return allowedHeroes.contains(heroType);
     }
 
 
-   public void showHeroItemDetails(){
-
-       System.out.println("Nome : " +this.name+ "| Preço : " + this.goldPrice +"moedas de ouro ");
-       System.out.println( "Heróis que podem usar:");
-       showHerosAllowed();
-   }
+   public abstract void showHeroItemDetails();
 
 
 

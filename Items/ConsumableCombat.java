@@ -19,7 +19,17 @@ public class ConsumableCombat extends Consumable {
 
     @Override
     public void showConsumableItem() {
+
         System.out.println("Ataque instantaneo : " + this.instantAttack);
+    }
+
+
+    @Override
+    public void showHeroItemDetails() {
+        System.out.println("Nome : " +this.name+ "| Preço : " + this.goldPrice +"moedas de ouro ");
+        showConsumableItem();
+        System.out.println( "Heróis que podem usar:");
+        showHerosAllowed();
     }
 }
 

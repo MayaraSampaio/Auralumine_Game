@@ -25,4 +25,19 @@ public class MainWeapon extends HeroItem {
     public void setSpecialAttack(int specialAttack) {
         this.specialAttack = specialAttack;
     }
+
+
+    public void showDetaillWeapon (){
+        System.out.println("MainWeapon "+
+                "attack=" + attack +
+                " specialAttack=" + specialAttack );
+    };
+
+    @Override
+    public void showHeroItemDetails() {
+        System.out.println("Nome : " +this.name+ "| Preço : " + this.goldPrice +"moedas de ouro ");
+        showDetaillWeapon();
+        System.out.println( "Heróis que podem usar:");
+        showHerosAllowed();
+    }
 }

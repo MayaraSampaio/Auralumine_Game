@@ -12,6 +12,7 @@ public class Seller {
     private ArrayList<HeroItem> itemsForSale;
 
     public Seller() {
+
         this.itemsForSale = new ArrayList<HeroItem>();
     }
 
@@ -19,25 +20,38 @@ public class Seller {
         return itemsForSale;
     }
 
+    /**
+     * Method for adding new items for sale.
+     * @param item
+     */
     public void addItemsForSale(HeroItem item){
         itemsForSale.add(item);
     }
 
+
+    /**
+     * Method for displaying sales inventory in a random order.
+     */
     public void showStore(){
         Collections.shuffle(this.itemsForSale);
         System.out.println("Itens disponíveis :");
 
         for (int i = 0; i < 10; i++) {
-            System.out.println("opção" + i+1 +": "+ this.itemsForSale.get(i));
+            System.out.println("Opção " + (i + 1) + ":");
             this.itemsForSale.get(i).showHeroItemDetails();
-
-
-
+            System.out.println("----------------------------");
         }
+        System.out.println("0 - Sair da loja");
 
     }
+
+    /**
+     * Method for implementing the sales logic.
+     * @param heroBuy
+     * @param itemBuy
+     */
     public void selling(Hero heroBuy, HeroItem itemBuy ){
-        if (itemsForSale.contains(itemBuy)){
+        if (!itemsForSale.contains(itemBuy)){
             System.out.println("Item não disponível.");
             return;
         }
@@ -64,15 +78,19 @@ public class Seller {
 
         heroBuy.setGold(heroBuy.getGold() - itemBuy.getGoldPrice());
         System.out.println("compra realizada com sucesso");
-        System.out.println("Cuidado por aí, dizem que as luzes se fizeram sombras");
+        System.out.println();
     }
 
+    /**
+     * Method for displaying items and making a sale if the hero wishes.
+     * @param hero
+     */
     public void openStore(Hero hero){
         Scanner input = new Scanner(System.in);
 
         int choice;
 
-        do {
+        while(true) {
 
             System.out.println("Detalhes do seu herói atual :");
             hero.showDetails();
@@ -81,29 +99,29 @@ public class Seller {
             System.out.println("Escolha um item :");
             showStore();
 
-            choice= input.nextInt();
+            choice = input.nextInt();
 
-            if (choice == 0){
+            if (choice == 0) {
                 System.out.println("Faremos negócio na proxima, então.");
                 break;
 
             }
 
-            int index = choice -1;
+            int index = choice - 1;
 
-            if (index <0 || index>= itemsForSale.size()){
+            if (index < 0 || index >= itemsForSale.size()) {
                 System.out.println("Opção invalida");
                 continue;
             }
 
             HeroItem choseItem = itemsForSale.get(index);
 
-            selling(hero,choseItem);
+            selling(hero, choseItem);
+
+        }
 
 
 
-
-        }while (true);
 
 
     }

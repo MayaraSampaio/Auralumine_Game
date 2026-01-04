@@ -20,7 +20,7 @@ public abstract class Hero extends Entity {
         this.heroType = heroType;
         this.level = level;
         this.mainWeapon = mainWeapon;
-        this.inventory = inventory;
+        this.inventory = new ArrayList<>();
         this.specialUsed = specialUsed;
     }
 
@@ -52,16 +52,25 @@ public abstract class Hero extends Entity {
         return inventory;
     }
 
+    /**
+     * Method for add new consumanle in Inventory
+     * @param newConsumable
+     */
     public void addConsumableInInventory(Consumable newConsumable){
         inventory.add(newConsumable);
     }
 
+    /**
+     * Method for removing a consumable from inventory
+     * @param consumableToDelete
+     */
     public void removeConsumableInventory(Consumable consumableToDelete){
         inventory.remove(consumableToDelete);
     }
 
     /**
-     * método para usar uma poção
+     *
+     Method for using a potion
      */
     public void usePotion(){
         ArrayList<Potion> potionsInInventory = new ArrayList<Potion>();
@@ -79,7 +88,7 @@ public abstract class Hero extends Entity {
 
         System.out.println("Poções disponíveis");
         for (int i =0; i < potionsInInventory.size();i++){
-            System.out.println((i+1) +"-"+ potionsInInventory.get(i));
+            System.out.println((i+1) +"-");
             potionsInInventory.get(i).showConsumableItem();
             System.out.println("--------------------------------------------");
         }
@@ -95,12 +104,29 @@ public abstract class Hero extends Entity {
 
         Potion usePotion = potionsInInventory.get(choice);
 
-        currentHp = currentHp + usePotion.getHealLife();
+        int healAmount = usePotion.getHealLife();
+        int missingHp = maxHp - currentHp;
+        int wastedHeal = healAmount - missingHp;
+
+        if (wastedHeal > 0) {
+            System.out.println("Esta poção irá desperdiçar " + wastedHeal + " pontos de cura.");
+            System.out.print("Deseja usá-la mesmo assim? ");
+            System.out.println("1 - Sim");
+            System.out.println("2- Não");
+
+            int option = sc.nextInt();
+            if (option != 1) {
+                System.out.println("Uso da poção cancelado.");
+                return;
+            }
+        }
+
+        currentHp += healAmount;
         if (currentHp > maxHp) {
             currentHp = maxHp;
         }
 
-        strength = strength + usePotion.getIncreaseStrength();
+        strength += usePotion.getIncreaseStrength();
 
         inventory.remove(usePotion);
 
@@ -111,7 +137,7 @@ public abstract class Hero extends Entity {
     }
 
     /**
-     * Metodo que chama o Menu para escolher o tipo de ataque
+     *Method that calls the Menu to choose the type of attack.
      * @return choice
      */
     public int attackMenu(){
@@ -122,10 +148,11 @@ public abstract class Hero extends Entity {
             System.out.println("1 - Ataque Normal");
             System.out.println("2 - Ataque Especial");
             System.out.println("3 - Ataque Consumível");
+            System.out.println("4 - Usar poção");
 
             int choice = sc.nextInt();
 
-            if (choice >=1 && choice <=3 ) {
+            if (choice >=1 && choice <=4 ) {
                 return choice;
             }
             else {
@@ -136,7 +163,7 @@ public abstract class Hero extends Entity {
     }
 
     /**
-     * Metodo para mostrar as opções de consumiveis de combate disponiveis do jogador
+     *Method for displaying the player's available combat consumable options.
      * @return consumable combate
      */
     public ConsumableCombat choiceConsumableCombate(){
@@ -157,7 +184,8 @@ public abstract class Hero extends Entity {
         while (true) {
             System.out.println("Consumíveis de Combate:");
             for (int i = 0; i < listConsumablesCombat.size(); i++) {
-                System.out.println((i + 1) + "-" + listConsumablesCombat.get(i));
+                System.out.print((i + 1) + " - ");
+                listConsumablesCombat.get(i).showHeroItemDetails();
             }
             System.out.println("0-Cancelar");
 
@@ -167,21 +195,20 @@ public abstract class Hero extends Entity {
             if (choice == 0) {
                 return null;
 
-            }
+            }else if (choice < 0 || choice > listConsumablesCombat.size()) {
+                System.out.println("Escolha inválida, tente novamente.");
+                continue;
 
-            if (choice > 0 && choice <= listConsumablesCombat.size()) {
+            } else {
                 return listConsumablesCombat.get(choice - 1);
             }
-
-            System.out.println("Escolha inválida.");
         }
 
     }
 
 
-
     /**
-     * Método que retorna dano causado para o ataque normal
+     *A method that reverts damage dealt to a normal attack.
      * @return damage value
      */
     public int normalAttack(){
@@ -190,7 +217,7 @@ public abstract class Hero extends Entity {
     };
 
     /**
-     * Método que retone dano causado para ataque especial
+     * A method that reflects damage dealt to a special attack.
      * @return damage
      */
     public int specialAttack(){
@@ -199,7 +226,7 @@ public abstract class Hero extends Entity {
     }
 
     /**
-     *Método que retorna dano causado por instantAttack e remove o consumable combat utilizado
+     *A method that returns damage caused by InstantAttack and removes the used consumable combat.
      * @param consumable
      * @return damage
      */
@@ -212,7 +239,7 @@ public abstract class Hero extends Entity {
 
 
     /**
-     * Método para ataques por turnos
+     * Method for turn-based attacks
      * @param targetNpc
      * @return true when the Hero Wins | return false when the NPC wins
      */
