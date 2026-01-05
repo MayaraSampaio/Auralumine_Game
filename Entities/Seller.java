@@ -1,5 +1,6 @@
 package Entities;
 
+import Assets.Audio;
 import Items.Consumable;
 import Items.HeroItem;
 import Items.MainWeapon;
@@ -7,6 +8,8 @@ import Items.MainWeapon;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
+import static java.lang.Thread.sleep;
 
 public class Seller {
     private ArrayList<HeroItem> itemsForSale;
@@ -33,6 +36,7 @@ public class Seller {
      * Method for displaying sales inventory in a random order.
      */
     public void showStore(){
+        System.out.println();
         Collections.shuffle(this.itemsForSale);
         System.out.println("Itens disponíveis :");
 
@@ -50,7 +54,7 @@ public class Seller {
      * @param heroBuy
      * @param itemBuy
      */
-    public void selling(Hero heroBuy, HeroItem itemBuy ){
+    public void selling(Hero heroBuy, HeroItem itemBuy ) throws InterruptedException {
         if (!itemsForSale.contains(itemBuy)){
             System.out.println("Item não disponível.");
             return;
@@ -68,10 +72,16 @@ public class Seller {
         // verificar se o item comprado é uma arma principal ou um consumível
 
         if (itemBuy instanceof MainWeapon) {
+            Audio.playMusic("AudioFiles/SonicRingSound.wav");
+            sleep(3000);
+            Audio.stopMusic();
             heroBuy.setMainWeapon((MainWeapon) itemBuy);
             System.out.println("Arma equipada com sucesso!");
         }
         else if (itemBuy instanceof Consumable) {
+            Audio.playMusic("AudioFiles/SonicRingSound.wav");
+            sleep(3000);
+            Audio.stopMusic();
             heroBuy.addConsumableInInventory((Consumable) itemBuy);
             System.out.println("Consumível adicionado ao inventário!");
         }
@@ -85,24 +95,24 @@ public class Seller {
      * Method for displaying items and making a sale if the hero wishes.
      * @param hero
      */
-    public void openStore(Hero hero){
+    public void openStore(Hero hero) throws InterruptedException {
         Scanner input = new Scanner(System.in);
 
         int choice;
 
         while(true) {
-
-            System.out.println("Detalhes do seu herói atual :");
-            hero.showDetails();
             System.out.println();
+            System.out.println("--------LOJA--------");
             System.out.println();
-            System.out.println("Escolha um item :");
+            System.out.println("OURO ATUAL :" + hero.getGold());
+            System.out.println("O que você deseja comprar :");
             showStore();
 
             choice = input.nextInt();
 
             if (choice == 0) {
-                System.out.println("Faremos negócio na proxima, então.");
+                System.out.println("Nos vemos em breve!");
+                System.out.println();
                 break;
 
             }

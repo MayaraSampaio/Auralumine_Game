@@ -54,7 +54,7 @@ public class WizardHero extends Hero {
             //WizardHero
             targetNpc.setCurrentHp(targetNpc.getCurrentHp() - damage);
             System.out.println("Você causou " + damage + " de dano!");
-            System.out.println("Vida NPC  " + targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+            System.out.println(targetNpc.name + targetNpc.getCurrentHp() + "|  Sua vida : " + this.currentHp);
 
 
             if (targetNpc.getCurrentHp()<=0) {
@@ -72,7 +72,7 @@ public class WizardHero extends Hero {
             int npcDamage = targetNpc.getStrength();
             currentHp -= npcDamage;
             System.out.println("O NPC causou " + npcDamage + " de dano!");
-            System.out.println("Vida NPC  " + targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+            System.out.println(targetNpc.name + targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
             System.out.println();
             System.out.println();
 
@@ -86,5 +86,11 @@ public class WizardHero extends Hero {
 
         specialUsed = false;
         return false;
+    }
+
+    @Override
+    public void showDetails() {
+            System.out.println( "Name : "+ this.name + " hp: "+ this.currentHp+"/"+ this.maxHp + " | Strength +" + this.strength + " | Gold :" + this.gold +"Level :"+this.level );
+
     }
 }

@@ -69,9 +69,4 @@ public abstract class HeroItem {
 
    public abstract void showHeroItemDetails();
 
-
-
-
-
-
 }

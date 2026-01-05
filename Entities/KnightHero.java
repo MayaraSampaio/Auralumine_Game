@@ -29,7 +29,7 @@ public class KnightHero extends Hero {
             int npcDamage = (int) Math.round((targetNpc.getStrength() * 0.80));
             currentHp -= npcDamage;
             System.out.println(targetNpc.name + "causou " + npcDamage + " de dano!");
-            System.out.println(targetNpc.name + " "+ targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+            System.out.println(targetNpc.name + " "+ targetNpc.getCurrentHp() + " | Sua vida : " + this.currentHp);
             System.out.println();
             System.out.println();
 
@@ -90,5 +90,12 @@ public class KnightHero extends Hero {
 
         specialUsed = false;
         return false;
+    }
+
+    @Override
+    public void showDetails() {
+          System.out.println( "Name : "+ this.name + " hp: "+ this.currentHp+"/"+ this.maxHp + " | Strength +" + this.strength + " | Gold :" + this.gold +" |Level :"+this.level);
+
+
     }
 }

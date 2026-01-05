@@ -1,10 +1,15 @@
 package Game;
 
+import Assets.Audio;
+import Assets.Image;
 import Entities.*;
 import Items.ConsumableCombat;
 import Items.MainWeapon;
 import Items.Potion;
 import java.util.Scanner;
+
+import static Assets.Typewriter.narrar;
+import static Assets.Typewriter.narrar2;
 import static Entities.HeroType.*;
 
 public class Game {
@@ -19,42 +24,55 @@ public class Game {
     /**
      * The method used to begin the story before creating the character
      */
-    public void initialHistory(){
+    public void initialHistory() throws InterruptedException {
+        Audio.playMusic("AudioFiles/openmusic.wav");
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Era uma vez em Auralumine, um reino de seres luminosos chamados Auralianos, cuja vida era iluminada pelos cristais Lumens.");
-        System.out.println("Pressione Enter para continuar...");
-        sc.nextLine();
+        System.out.println(Image.LOGO);
+        Thread.sleep(4000);
 
-        System.out.println("O reino era governado pelo Rei Ed e pela Rainha Firna, que tinham dois filhos gêmeos, Solaria e Sonte, nascidos sob um eclipse raro."  );
-        System.out.println("Pressione Enter para continuar...");
-        sc.nextLine();
+        narrar(
+                "Era uma vez em Auralumine, um reino de seres luminosos chamados Auralianos, cuja vida era iluminada pelos cristais Lumens.",
+                sc
+        );
 
-        System.out.println("O rei e a rainha nunca decidiram quem seria o próximo governante, decretando que ambos se tornariam rei e rainha ao completarem 21 anos." );
-        System.out.println("Solaria era corajosa e treinava com os guardiões do reino, enquanto Sonte estudava profundamente a magia dos Lumens.");
+        narrar(
+                "O reino era governado pelo Rei Ed e pela Rainha Firna, que tinham dois filhos gêmeos, Solaria e Sonte, nascidos sob um eclipse raro.",
+                sc
+        );
 
-        System.out.println("Pressione Enter para continuar...");
-        sc.nextLine();
+        narrar(
+                "O rei e a rainha nunca decidiram quem seria o próximo governante, decretando que ambos se tornariam rei e rainha ao completarem 21 anos.",
+                sc
+        );
 
-        System.out.println("Tudo mudou quando o Coração de Lumen, cristal primordial do reino, foi roubado, e os pais foram misteriosamente assassinados. O reino entrou em pânico e os gêmeos ficaram órfãos.");
+        narrar(
+                "Solaria era corajosa e treinava com os guardiões do reino, enquanto Sonte estudava profundamente a magia dos Lumens.",
+                sc
+        );
 
-        System.out.println("Pressione Enter para continuar...");
-        sc.nextLine();
+        narrar(
+                "Tudo mudou quando o Coração de Lumen, cristal primordial do reino, foi roubado, e os pais foram misteriosamente assassinados. O reino entrou em pânico e os gêmeos ficaram órfãos.",
+                sc
+        );
 
-        System.out.println("Determinada a salvar seu povo, Solaria decidiu partir em uma jornada ");
-        System.out.println("para recuperar o Coração de Lumen. Antes de começar, o Conselho Luminar a orienta a escolher seu caminho.");
+        narrar(
+                "Determinada a salvar seu povo, Solaria decidiu partir em uma jornada para recuperar o Coração de Lumen.",
+                sc
+        );
 
-        System.out.println("Pressione Enter para continuar...");
-        sc.nextLine();
+        narrar(
+                "Antes de começar, o Conselho Luminar a orienta a escolher seu caminho.",
+                sc
+        );
 
-        System.out.println("LOCAL: SANTUÁRIO LUMINAR");
+        narrar("LOCAL: SANTUÁRIO LUMINAR", sc);
 
-        System.out.println("Solaria caminha até o Santuário luminar para encontrar com o sábio Mestre Kael ,");
-        System.out.println("um Auraliano Luminoso com marcas de luz azulada que brilham como constelações.");
-
-        System.out.println("Pressione Enter para continuar...");
-        sc.nextLine();
-
+        narrar(
+                "Solaria caminha até o Santuário Luminar para encontrar com o sábio Mestre Kael, um Auraliano Luminoso com marcas de luz azulada que brilham como constelações.",
+                sc
+        );
+        Audio.stopMusic();
 
     }
     /**
@@ -75,17 +93,18 @@ public class Game {
 
 
         do {
+            System.out.println("LOCAL : SANTUÁRIO LUMINAR");
             System.out.println("Mestre Kael: O destino chamou por você . Não posso impedir sua partida, mas posso garantir que você vá preparada.");
             System.out.println("Escolha seu caminho com sabedoria.");
             System.out.println();
             System.out.println();
-            System.out.println("1 - Cavaleira : Defesa acima de tudo, terá uma armadura alada forjada pela chama de lúmens que te protegerá no combate corpo a corpo. ");
-            System.out.println("2 - Feiticeira: Manipula magia luminosa, com ataques à media distância .");
-            System.out.println("3 - Arqueira:   Rápida e precisa, utiliza o arco feito do carvalho mais antigo de Auralúmens,ataques acima de tudo");
+            System.out.println("⚔\uFE0F 1 - Cavaleira : Defesa acima de tudo, terá uma armadura alada forjada pela chama de lúmens que te protegerá no combate corpo a corpo. ");
+            System.out.println("\uD83D\uDD2E 2 - Feiticeira: Manipula magia luminosa, com ataques à media distância .");
+            System.out.println("\uD83C\uDFF9 3 - Arqueira:   Rápida e precisa, utiliza o arco feito do carvalho mais antigo de Auralúmens,ataques acima de tudo");
             System.out.println();
             System.out.println("Pense bem ...");
             System.out.println("Escolha a sua opção: ");
-
+            System.out.println();
             option = input.nextInt();
             if (option < 1 || option > 3){
                 System.out.println("Opção inválida, tente novamente");
@@ -184,19 +203,23 @@ public class Game {
         switch (heroType) {
             case CAVALEIRA:
                 hero = new KnightHero(name, maxHp, currentHp, strength, gold, heroType, level, starterWeapon);
+                hero.showDetails();
                 break;
 
             case FEITICEIRA:
                 hero = new WizardHero(name, maxHp, currentHp, strength, gold, heroType, level, starterWeapon);
+                hero.showDetails();
                 break;
 
             case ARQUEIRA:
                 hero = new ArcherHero(name, maxHp, currentHp, strength, gold, heroType, level, starterWeapon);
+                hero.showDetails();
                 break;
 
             default:
                 throw new IllegalStateException("Tipo de herói inválido");
         }
+
 
         return hero;
 
@@ -216,20 +239,20 @@ public class Game {
      * The method used to create a villain.
      * @return Npc
      */
-    public Npc createSileph(){return new Npc("Guardiã Corrompida Sileph",95,95,19,20);}
+    public Npc createSileph(){return new Npc("Guardiã Corrompida Sileph",95,95,15,20);}
 
     /**
      * The method used to create a villain.
      * @return Npc
      */
-    public Npc createComandanteMascara(){return new Npc("Comandante da Máscara",145,145,25,40);}
+    public Npc createComandanteMascara(){return new Npc("Comandante da Máscara",120,120,17,40);}
 
     /**
      * The method used to create a villain.
      * @return Npc
      */
     public Npc createSonteFinal(){
-        return new Npc("Sonte",200,200,38,0);
+        return new Npc("Sonte",180,180,25,0);
     }
 
     /**
@@ -357,61 +380,47 @@ public class Game {
      * @throws InterruptedException
      */
     public int torreHorizonte_02() throws InterruptedException {
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println("LOCAL: Torre do horizonte");
-        Thread.sleep(1500);
+
+        narrar2("LOCAL: Torre do horizonte", sc);
         System.out.println();
         System.out.println();
 
-        System.out.println("Eldros o sábio cego !");
-        Thread.sleep(1500);
+        narrar2("Eldros o sábio cego!", sc);
 
-        System.out.println(" Eldros : Eu não vejo como você vê, Solaria...");
-        Thread.sleep(2000);
-
-        System.out.println(" Mas percebo sua luz.");
-        Thread.sleep(1500);
-
-        System.out.println("Ela oscila.");
-        Thread.sleep(1500);
-
-        System.out.println("Você carrega dor e esperança.");
-        Thread.sleep(2000);
-
-
-        System.out.println();
-        System.out.println("Eldros : O Coração de Lumen ainda pulsa...");
-        Thread.sleep(2000);
-
-        System.out.println("mas está em mãos traiçoeiras.");
-        Thread.sleep(2500);
-
-        System.out.println("Muitas vezes podemos nos surpreender.");
-        Thread.sleep(2000);
-
-
-        System.out.println();
-        System.out.println();
-        System.out.println("Nós nunca conhecemos realmente a fundo");
-        Thread.sleep(1500);
-
-        System.out.println("aqueles que pensamos.");
-        Thread.sleep(3000);
-
-        System.out.println();
-        System.out.println("Siga seu caminho...");
-        Thread.sleep(2000);
-
-        System.out.println("Força não é ausência de medo.");
-        Thread.sleep(1500);
-
-        System.out.println("É escolher avançar mesmo tremendo.");
+        narrar2("Eldros: Eu não vejo como você vê, Solaria...", sc);
+        narrar2("Mas percebo sua luz.", sc);
+        narrar2("Ela oscila.", sc);
+        narrar2("Você carrega dor e esperança.", sc);
 
         System.out.println();
 
+        narrar2("Eldros: O Coração de Lumen ainda pulsa...", sc);
+        narrar2("mas está em mãos traiçoeiras.", sc);
+        narrar2("Muitas vezes podemos nos surpreender.", sc);
 
-        System.out.println("Você precisa passar pelo Vilarejo Vivalume, pois precisa procurar uma pessoa...");
-        System.out.println("Seguir para o Vilarejo Vivalume");
+        System.out.println();
+        System.out.println();
+
+
+        narrar("Nós nunca conhecemos realmente a fundo", sc);
+        narrar("aqueles que pensamos.", sc);
+
+        System.out.println();
+
+        narrar("Siga seu caminho...", sc);
+        narrar("Força não é ausência de medo.", sc);
+        narrar("É escolher avançar mesmo tremendo.", sc);
+
+        System.out.println();
+
+        narrar(
+                "Você precisa passar pelo Vilarejo Vivalume, pois precisa procurar uma pessoa...",
+                sc
+        );
+
+        narrar("Seguir para o Vilarejo Vivalume", sc);
         System.out.println();
         return 3;  // Vivalume
 
@@ -425,33 +434,22 @@ public class Game {
      */
     public int vilarejoVivalume_03(Hero hero) throws InterruptedException {
         Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         Seller lira = createSeller();
 
         int choice;
 
-        System.out.println("LOCAL: VILAREJO DE VIVALUME ");
-        Thread.sleep(1500);
+        narrar2("LOCAL: VILAREJO DE VIVALUME ",sc);
         System.out.println();
         System.out.println();
 
-        System.out.println("Solária: Quanta gente! Estão todos desesperados com o desaparecimento do coração de Lúmen.");
+        narrar("Solária: Quanta gente! Estão todos desesperados com o desaparecimento do coração de Lúmen.",sc);
         System.out.println();
-        System.out.println();
-        Thread.sleep(1500);
 
+        narrar2("Jovem de cabelo rosa que carrega uma mochila flutuante aparece em frente a Solária...",sc);
+        narrar2("Lira a mercadora de Luz.",sc);
 
-        System.out.println("Jovem de cabelo rosa que carrega uma mochila flutuante aparece em frente a Solária...");
-        System.out.println();
-        Thread.sleep(1500);
-
-        System.out.println("Lira a mercadora de Luz.");
-        System.out.println();
-        System.out.println();
-        Thread.sleep(1500);
-
-        System.out.println(" Lira :" +"Oh! Você é Solaria, não é? Todos aqui falam de sua coragem. Se precisar de equipamentos, magia engarrafada ou até fofocas… eu tenho de tudo um pouco!");
-        Thread.sleep(2000);
-        System.out.println();
+        narrar("Lira : Oh! Você é Solaria, não é? Todos aqui falam de sua coragem. Se precisar de equipamentos, magia engarrafada ou até fofocas… eu tenho de tudo um pouco!",sc);
 
         encontroComMercadora(hero);
 
@@ -473,23 +471,23 @@ public class Game {
      * The method used to create vilarejo abandonado Room
      * @param hero
      * @return int -> used in switch case
+     *
      * @throws InterruptedException
      */
     public int vilarejoAbandonado_04(Hero hero) throws InterruptedException {
-        System.out.println("LOCAL: Vilarejo abandonado");
-        Thread.sleep(1500);
+        Scanner sc = new Scanner(System.in);
+        narrar2("LOCAL: Vilarejo abandonado",sc);
 
-        System.out.println(" Solária : Não tem ninguém por aqui, as sombras tomaram esse lugar...");
-        Thread.sleep(1500);
+        narrar(" Solária : Não tem ninguém por aqui, as sombras tomaram esse lugar...",sc);
 
-        System.out.println("barulho : AUUUUUUUUUUUUUUUUUUUUHHHHHHHHHHH!");
-        Thread.sleep(1500);
+        narrar2("barulho : AUUUUUUUUUUUUUUUUUUUUHHHHHHHHHHH!",sc);
 
+        narrar2("Lobo luminar corrompido : Você não deveria estar aqui. As sombras irão dominar Auralumine",sc);
         Npc npc = createLoboLuminar();
-
-        System.out.println("Lobo luminar corrompido : Você não deveria estar aqui. As sombras irão dominar Auralumine");
-
-       hero.showDetails();
+        System.out.println();
+        hero.showDetails();
+        System.out.println();
+        npc.showDetails();
        boolean venceu = hero.attack(npc);
 
        if(!venceu){
@@ -516,6 +514,7 @@ public class Game {
         while (true) {
 
             Scanner input = new Scanner(System.in);
+            System.out.println();
             System.out.println("Para onde deseja ir agora?");
             System.out.println("1 - Casa no Vilarejo Abandonado");
             System.out.println("2 - Ruínas Ocultas");
@@ -540,17 +539,14 @@ public class Game {
     public int casaVilarejoAbandonado_05(Hero hero) throws InterruptedException {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("LOCAL: Casa com uma luz no Vilarejo Abandonado");
-        Thread.sleep(1500);
+        narrar2("LOCAL: Casa com uma luz no Vilarejo Abandonado",sc);
 
-        System.out.println("Entre as ruínas, uma pequena casa ainda emite uma luz fraca. O brilho tremula, como se estivesse prestes a se apagar.");
-        Thread.sleep(2000);
+        narrar2("Entre as ruínas, uma pequena casa ainda emite uma luz fraca. O brilho tremula, como se estivesse prestes a se apagar.",sc);
+        narrar2("Ao se aproximar, você vê uma pessoa ferida, envolta em sombras. Ela parece exausta e assustada.",sc);
 
-        System.out.println("Ao se aproximar, você vê uma pessoa ferida, envolta em sombras. Ela parece exausta e assustada.");
-        Thread.sleep(2000);
 
-        System.out.println("Senhora em perigo: Por favor... eu não sei quanto tempo mais aguento...");
-        Thread.sleep(1500);
+        narrar("Senhora em perigo: Por favor... eu não sei quanto tempo mais aguento...",sc);
+
 
         System.out.println("O que você deseja fazer?");
         System.out.println("1 - Ajudar a pessoa");
@@ -620,16 +616,13 @@ public class Game {
     public int fendaNegra_06(Hero hero) throws InterruptedException {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("LOCAL: Sala da Fenda Negra");
-        Thread.sleep(1000);
+        Scanner sc = new Scanner(System.in);
+        narrar2("LOCAL: Sala da Fenda Negra",sc);
+        narrar2("Você entra na sala e sente a escuridão abraçar cada canto...",sc);
+        narrar2("Um garoto aparece e diz: Cuidado para atravessar. Tenho uma lanterna com lumis-fire ou posso te dar 200 moedas . ",sc);
 
-        System.out.println("Você entra na sala e sente a escuridão abraçar cada canto...");
-        Thread.sleep(1500);
 
-        System.out.println("Um garoto aparece e diz:");
-        Thread.sleep(1000);
-        System.out.println("Cuidado para atravessar. Tenho uma lanterna com lumis-fire ou posso te dar 200 moedas . ");
-        Thread.sleep(1500);
+
 
         while(true){
             System.out.println("Escolha sua ação:");
@@ -727,23 +720,22 @@ public class Game {
      */
     public int desfiladeiroEclipse_08(Hero hero) throws InterruptedException {
         Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
         encontroComMercadora(hero);
 
-        System.out.println("LOCAL: Desfiladeiro do Eclipse");
-        Thread.sleep(1000);
-
-        System.out.println("Sileth, Ex-guardiã com armadura semi-corrompida, metade iluminada, metade tomada por sombra.");
-        Thread.sleep(1500);
-
-        System.out.println("Sileph: Fique longe de mim! A escuridão sussurra... ela controla... eu não...eu não posso…");
-        Thread.sleep(1500);
-
-        System.out.println("Sileph: Você vai sofrer Solária");
-        Thread.sleep(1500);
-
+        narrar2("LOCAL: Desfiladeiro do Eclipse",sc);
+        narrar2("Sileth, Ex-guardiã com armadura semi-corrompida, metade iluminada, metade tomada por sombra.",sc);
+        narrar("Sileph: Fique longe de mim! A escuridão sussurra... ela controla... eu não...eu não posso…",sc);
+        narrar("Sileph: Você vai sofrer Solária",sc);
 
         Npc sileph = createSileph();
+
+        System.out.println();
+        hero.showDetails();
+        System.out.println();
+        sileph.showDetails();
+
         boolean venceu = hero.attack(sileph);
 
         if (!venceu) {
@@ -756,7 +748,7 @@ public class Game {
 
             while (true) {
                 System.out.println("Para onde deseja ir agora?");
-                System.out.println("1 - Desfiladeiro do Eclipse");
+                System.out.println("1 - Ruinas ocultas");
                 System.out.println("2 - Camara Comandante");
 
                 int myWay = input.nextInt();
@@ -777,30 +769,24 @@ public class Game {
      * @throws InterruptedException
      */
     public int camaraComandante_09(Hero hero) throws InterruptedException {
-        System.out.println("LOCAL: Câmara do Comandante");
-        Thread.sleep(1000);
-        System.out.println("Você entra e vê o Comandante da Máscara aguardando...");
-        Thread.sleep(1000);
+        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Comandante da Mascara: Então você é a Solária... ");
-        Thread.sleep(1000);
-        System.out.println("Comandante da Mascara: Junte se a nós, deixe as sombras mostrarem todo o seu poder... ");
-        Thread.sleep(1000);
+        narrar2("LOCAL: Câmara do Comandante", sc);
+        narrar2("Você entra e vê o Comandante da Máscara aguardando...", sc);
+        narrar("Comandante da Máscara: Então você é a Solária...", sc);
+        narrar("Comandante da Máscara: Junte-se a nós, deixe as sombras mostrarem todo o seu poder...", sc);
+        narrar2("Solária: Prefiro morrer...", sc);
+        narrar("De repente, uma voz familiar ecoa: Sonte, seu irmão gêmeo, é o traidor!", sc);
+        narrar2("Sonte: Comandante, mate-a", sc);
 
-        System.out.println("Solária: Prefiro morrer... ");
-        Thread.sleep(1000);
-
-        System.out.println("De repente, uma voz familiar ecoa: Sonte, seu irmão gêmeo, é o traidor !");
-        Thread.sleep(1500);
-
-        System.out.println("Sonte : Comandante, mate-a");
-        Thread.sleep(1500);
-
-
-        System.out.println("Prepare-se para a batalha ");
+        narrar("Prepare-se para a batalha", sc);
 
         Npc comandante = createComandanteMascara();
+        System.out.println();
         hero.showDetails();
+        System.out.println();
+        comandante.showDetails();
+
         boolean venceu = hero.attack(comandante);
         if (!venceu) {
             System.out.println("Você foi derrotado...");
@@ -827,48 +813,44 @@ public class Game {
     public int tronoSombrio_10(Hero hero) throws InterruptedException {
 
         Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         encontroComMercadora(hero);
 
-        System.out.println("LOCAL: TRONO SOMBRIO");
-        Thread.sleep(1500);
+        narrar("LOCAL: TRONO SOMBRIO", input);
 
 
-        System.out.println("Você entra na grandiosa sala do trono. O ar está pesado, cheio de trevas e silêncio.");
-        System.out.println("Sonte, seu irmão gêmeo, está sentado no trono, metade de seu corpo iluminado, metade mergulhado em sombras.");
-        Thread.sleep(3000);
+        narrar("Você entra na grandiosa sala do trono. O ar está pesado, cheio de trevas e silêncio.",sc);
+        narrar("Sonte, seu irmão gêmeo, está sentado no trono, metade de seu corpo iluminado, metade mergulhado em sombras.", sc);
+
+
+
+        narrar("Sonte: Ah, Solaria... você finalmente veio. Eu esperava por este momento.", sc);
+        narrar2("Solaria: Sonte! Como você pôde... matar nossos pais e roubar o Coração de Lumen?", sc);
+        narrar("Sonte sorri, mas não há calor em seus olhos, apenas frieza e determinação.", sc);
+
+        narrar("Sonte: Matar nossos pais... foi necessário. Eles eram fracos, limitados pelo medo da tradição. Eu não queria dividir o reino, Solaria. Nunca quis. E agora, a luz não é suficiente para governar este mundo.",sc);
+        narrar("Sonte: As sombras são mais fortes, mais rápidas, mais eternas. A Luz é bela... mas fraca, efêmera.", sc);
+        narrar2("Solaria: Ainda podemos mudar isso! Não é tarde!", sc);
+
 
         System.out.println();
-        System.out.println("Pressione Enter continuar...");
+        System.out.println("Pressione Enter para continuar...");
         input.nextLine();
 
-        System.out.println("Sonte: Ah, Solaria... você finalmente veio. Eu esperava por este momento.");
-        System.out.println("Solaria: Sonte! Como você pôde... matar nossos pais e roubar o Coração de Lumen?");
-        System.out.println("Sonte sorri, mas não há calor em seus olhos, apenas frieza e determinação.");
-        Thread.sleep(3000);
-
-        System.out.println();
-        System.out.println("Pressione Enter continuar...");
-        input.nextLine();
+        narrar("Sonte levanta-se, a escuridão envolvendo-o como uma aura viva.", sc);
+        narrar("Sonte: Não há mais volta, irmã. Você não vai me salvar, e nem salvará este reino se se opuser a mim.", sc);
+        narrar("Sonte: Eu sou a sombra que tudo consome, e quem tentar me enfrentar será destruído.", sc);
 
 
-        System.out.println("Sonte: Matar nossos pais... foi necessário. Eles eram fracos, limitados pelo medo da tradição.Eu não queria dividir o reino, Solaria. Nunca quis. E agora, a luz não é suficiente para governar este mundo.\"");
-        System.out.println("Sonte: As sombras são mais fortes, mais rápidas, mais eternas. A Luz é bela... mas fraca, efêmera.");
-        System.out.println("Solaria: Ainda podemos mudar isso! Não é tarde!");
-        Thread.sleep(3000);
 
-        System.out.println();
-        System.out.println("Pressione Enter continuar...");
-        input.nextLine();
-
-        System.out.println("Sonte levanta-se, a escuridão envolvendo-o como uma aura viva.");
-        System.out.println("Sonte: Não há mais volta, irmã. Você não vai me salvar, e nem salvará este reino se se opuser a mim.");
-        System.out.println("Sonte: Eu sou a sombra que tudo consome, e quem tentar me enfrentar será destruído.");
-        Thread.sleep(3000);
-
-        System.out.println("Pressione Enter para enfrentar o destino");
-        input.nextLine();
 
         Npc sonteFinal = createSonteFinal();
+
+        System.out.println();
+        hero.showDetails();
+        System.out.println();
+        sonteFinal.showDetails();
+
         boolean venceu = hero.attack(sonteFinal);
 
         if (!venceu) {
@@ -885,9 +867,13 @@ public class Game {
      * Method used to introduce the saleswoman into the rooms.
      * @param hero
      */
-    private void encontroComMercadora(Hero hero) {
+    private void encontroComMercadora(Hero hero) throws InterruptedException {
         Seller lira1 = createSeller();
         Scanner input = new Scanner(System.in);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
         System.out.println("Lira surge entre feixes de luz...");
         System.out.println("Lira: Antes de prosseguir, talvez queira se preparar...");
         System.out.println("1 - Comprar");
@@ -899,6 +885,13 @@ public class Game {
         }else {
             System.out.println("Lira desaparece entre partículas luminosas...");
             System.out.println("você continua seu caminho...");
+
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
+            System.out.println();
         }
     }
 
@@ -906,13 +899,14 @@ public class Game {
      * Method used to tell the initial story and create the hero to start the game.
      * @return Hero
      */
-    public Hero startGame() {
+    public Hero startGame() throws InterruptedException {
         initialHistory();
         return createHero();
     }
 
 
     /**
+     *
      *Method to start the game's navigation menu
      * @param hero
      * @throws InterruptedException

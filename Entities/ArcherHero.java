@@ -58,7 +58,7 @@ public class ArcherHero extends Hero{
             //ArcherHero
             targetNpc.setCurrentHp(targetNpc.getCurrentHp() - damage);
             System.out.println("Você causou " + damage + " de dano!");
-            System.out.println(targetNpc.name + " "+ targetNpc.getCurrentHp() + " Sua vida : " + this.currentHp);
+            System.out.println(targetNpc.name + " "+ targetNpc.getCurrentHp() + "|  Sua vida : " + this.currentHp);
             System.out.println();
 
             if (targetNpc.getCurrentHp()<=0) {
@@ -88,6 +88,12 @@ public class ArcherHero extends Hero{
 
         }
         return false;
+
+    }
+
+    @Override
+    public void showDetails() {
+            System.out.println( "Name : "+ this.name + " hp: "+ this.currentHp+"/"+ this.maxHp + " | Strength +" + this.strength + " | Gold :" + this.gold+"Level :"+this.level);
 
     }
 }

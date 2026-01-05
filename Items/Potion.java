@@ -28,14 +28,12 @@ public class Potion extends Consumable {
 
     @Override
     public void showConsumableItem() {
-        System.out.println("Nome :" + super.name +" | Poder de Cura : " +this.healLife + "| Aumento de força : " + this.increaseStrength);
+        System.out.println("Nome :" + super.name +" | Poder de Cura : " +this.healLife + "| Aumento de força : " + this.increaseStrength );
     }
-
 
     @Override
     public void showHeroItemDetails() {
-        System.out.println(this.goldPrice +"moedas de ouro ");
-        showConsumableItem();
+        System.out.println("Nome :" + super.name +" | Poder de Cura : " +this.healLife + "| Aumento de força : " + this.increaseStrength + "| Preço : "+ this.goldPrice +" moedas de ouro");
         System.out.println( "Heróis que podem usar:");
         showHerosAllowed();
     }

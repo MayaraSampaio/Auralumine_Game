@@ -244,4 +244,6 @@ public abstract class Hero extends Entity {
      * @return true when the Hero Wins | return false when the NPC wins
      */
     public abstract boolean attack(Npc targetNpc);
+
+    public abstract void showDetails();
 }
