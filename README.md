@@ -40,10 +40,3 @@ Você acompanha a jornada de **Solaria**, uma guerreira determinada a salvar seu
 - ASCII Art e códigos ANSI para o terminal
 
 ---
-
-## ▶️ Como Executar
-
-1. Certifique-se de ter o **Java JDK 17 ou superior**
-2. Compile o projeto:
-   ```bash
-   javac Main.java
