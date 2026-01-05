@@ -232,14 +232,14 @@ public class Game {
      * @return Npc
      */
     public Npc createLoboLuminar(){
-        return new Npc("Lobo das Sombras",70,70,12,10);
+        return new Npc("Lobo das Sombras",70,70,10,10);
     }
 
     /**
      * The method used to create a villain.
      * @return Npc
      */
-    public Npc createSileph(){return new Npc("Guardiã Corrompida Sileph",95,95,15,20);}
+    public Npc createSileph(){return new Npc("Guardiã Corrompida Sileph",95,95,12,20);}
 
     /**
      * The method used to create a villain.
@@ -252,7 +252,7 @@ public class Game {
      * @return Npc
      */
     public Npc createSonteFinal(){
-        return new Npc("Sonte",180,180,25,0);
+        return new Npc("Sonte",170,170,23,0);
     }
 
     /**
@@ -689,9 +689,11 @@ public class Game {
         int choice;
 
         hero.showDetails();
-        System.out.println("Você está caminhando e encontrou um baú velho e enferrujado com 30 moedas de ouro ");
         Thread.sleep(1500);
-        hero.setGold(hero.getGold()+ 30);
+        int gold = 30 + (int)(Math.random() * 71);
+        System.out.println("Você está caminhando e encontrou um baú velho e enferrujado com "+gold+ " moedas de ouro ");
+
+        hero.setGold(hero.getGold()+ gold);
 
         System.out.println();
         System.out.println("status atual:");
